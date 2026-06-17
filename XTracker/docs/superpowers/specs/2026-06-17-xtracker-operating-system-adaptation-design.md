@@ -9,7 +9,7 @@
 
 **Задача владельца:** адаптировать операционный playbook команды агентов проекта **X5_BM** (mothership; enterprise Go-микросервисы, экспорт `lukinvit/X5_BM` main @ `c87e9ee6`, 2026-06-13) под проект **XTracker-плагин**.
 
-**XTracker (продукт):** внутренний issue/project-трекер X5 класса Jira/YouTrack — 23 Go-микросервиса (auth, ticket, sprint, project, goals/OKR, workflow-engine, collaboration, timetracking, dashboard, query, search, …), `pulsar.x5.ru`, JWT Bearer + API-ключи, multi-tenant (organizations/tenants, RBAC по очередям). API: 350 путей / 513 операций / 272 схемы (OpenAPI 3.0.3).
+**XTracker (продукт):** внутренний issue/project-трекер X5 класса Jira/YouTrack — 23 Go-микросервиса (auth, ticket, sprint, project, goals/OKR, workflow-engine, collaboration, timetracking, dashboard, query, search, …), `xtracker.x5team.ru`, JWT Bearer + API-ключи, multi-tenant (organizations/tenants, RBAC по очередям). API: 350 путей / 513 операций / 272 схемы (OpenAPI 3.0.3).
 
 **Этот проект (что строим):** **MCP-плагин для платформы Jarvis / X5 Maverick** — мост «чат Jarvis ↔ XTracker». Плагин упаковывается в zip, регистрирует tools, общается по stdio JSON-RPC. Платформенный контракт описан в `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` (далее — **spec**).
 
@@ -145,11 +145,11 @@ Plugins/                          # git-корень
 
 - **slug:** `xtracker` · **name:** «XTracker» · **runtime:** Python, **ручной stdio JSON-RPC** по spec §15.1 (полный контроль над `__jarvis`, structured_content, `_meta`; FastMCP-scaffold заменяем — он не извлекает `__jarvis`).
 - **Config (`__jarvis.config`, схема в `config/schema.json`):**
-  - `base_url` (default `https://pulsar.x5.ru`)
+  - `base_url` (default `https://xtracker.x5team.ru`)
   - `auth_mode` (`api_key` | `password`; **default `api_key`** — сервис-аккаунт, scoped, долгоживущий)
   - `api_key` (secret) **или** `email` + `password` (secret)
   - `organization` (опц.), `default_queue` (опц.)
-  - `verify_ssl` (bool, default true) + опц. `ca_cert` (у pulsar свой сертификат — см. `pulsar-x5-ssl/`)
+  - `verify_ssl` (bool, default true) + опц. `ca_cert` (если у XTracker свой корневой сертификат)
   - `timeout` (сек)
   - Плагин кэширует JWT и рефрешит через `POST /api/v1/auth/refresh`.
 - **v1 tools (ядро иссью):**

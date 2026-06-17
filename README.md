@@ -18,7 +18,7 @@ Plugins/
 │   ├── MEMORY_CONVENTION.md    · конвенция памяти агентов
 │   └── PLUGIN_AUTHORING_GUIDE.md ← как создать новый плагин (idea → zip)
 ├── .claude/agents/             ← тонкие стабы агентов (дискаверятся Claude Code)
-└── XTracker/                   ← плагин: мост Jarvis ↔ трекер XTracker (pulsar.x5.ru)
+└── XTracker/                   ← плагин: мост Jarvis ↔ трекер XTracker (xtracker.x5team.ru)
     ├── README.md  ·  DOMAIN.md (API/config/tools/UI)
     ├── Product_agents/         · команда агентов плагина (каноны xt-*, AGENTS.md, память)
     ├── docs/superpowers/       · спека + план адаптации (история)
@@ -35,7 +35,7 @@ Plugins/
 
 | Плагин | Что делает | Статус |
 |---|---|---|
-| [XTracker](XTracker/README.md) | Чат-интеграция Jarvis с issue-трекером XTracker (`pulsar.x5.ru`): поиск/создание/обновление/комментарии/смена статуса иссью | Операционка готова; v1-плагин — следующий шаг через `/pipeline-lite` |
+| [XTracker](XTracker/README.md) | Чат-интеграция Jarvis с issue-трекером XTracker (`xtracker.x5team.ru`): поиск/создание/обновление/комментарии/смена статуса иссью | Операционка готова; v1-плагин — следующий шаг через `/pipeline-lite` |
 
 ## Лицензия
 

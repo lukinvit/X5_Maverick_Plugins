@@ -173,7 +173,7 @@ git commit -m "docs: production process — /pipeline-lite + git publish + memor
 **Interfaces:**
 - Produces: the single pointer the constitution Часть II and agents cite for platform/API details.
 
-- [ ] **Step 1: Author.** Sections: (1) pointer to `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` as the platform contract canon, with a 1-line index of its key sections (§4 manifest, §5 SKILL.md, §6 protocol, §7 tools/`__jarvis`, §8 instances, §17 Generative UI, §20 batch, §21 idempotent-skip). (2) XTracker API structure summary: base `pulsar.x5.ru`, JWT Bearer + API-keys, multi-tenant; the chat-relevant services and their core endpoints from design spec §7 table; the rule «use API by description+structure only, do not vendor `XTracker_Api.json`». (3) where local copies live (`~/Downloads/pulsar-x5-ssl/`).
+- [ ] **Step 1: Author.** Sections: (1) pointer to `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` as the platform contract canon, with a 1-line index of its key sections (§4 manifest, §5 SKILL.md, §6 protocol, §7 tools/`__jarvis`, §8 instances, §17 Generative UI, §20 batch, §21 idempotent-skip). (2) XTracker API structure summary: base `xtracker.x5team.ru`, JWT Bearer + API-keys, multi-tenant; the chat-relevant services and their core endpoints from design spec §7 table; the rule «use API by description+structure only, do not vendor `XTracker_Api.json`». (3) where local copies live (`~/Downloads/pulsar-x5-ssl/`).
 - [ ] **Step 2: Verify.** Run: `grep -c 'mcp_plugins_dev_spec\|pulsar.x5.ru\|description+structure\|description \+ structure\|структуре' docs/platform-canon.md` → Expected: ≥2. Confirm the doc does NOT paste large API schemas. Run: `wc -l docs/platform-canon.md` → Expected: < 120 lines.
 - [ ] **Step 3: Commit.**
 ```bash

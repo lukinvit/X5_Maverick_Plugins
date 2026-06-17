@@ -11,7 +11,7 @@
 | PROJECT_ROOT | `Plugins/` (git-корень) |
 | GH_REPO | `lukinvit/X5_Maverick_Plugins` (origin); зеркало X5: `scm.x5.ru/airun/copilot/devops/X5_Maverick_Plugins` (remote `x5`) |
 | Платформа | Jarvis / X5 Maverick (MCP-плагины, stdio JSON-RPC, zip) |
-| Цель-плагин | XTracker — issue-трекер X5 (`pulsar.x5.ru`), v1 = ядро иссью |
+| Цель-плагин | XTracker — issue-трекер X5 (`xtracker.x5team.ru`), v1 = ядро иссью |
 | UPSTREAM_SHA (mothership) | `c87e9ee6` (X5_BM, экспорт 2026-06-13) |
 | Bootstrap | 2026-06-17 (вручную, через brainstorming → writing-plans → executing-plans) |
 | Подход | Mirror-lite (6-частная структура mothership, масштабированная под один плагин) |

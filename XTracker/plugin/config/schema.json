@@ -7,7 +7,7 @@
       "title": "URL XTracker",
       "description": "Базовый URL API трекера",
       "format": "uri",
-      "default": "https://pulsar.x5.ru"
+      "default": "https://xtracker.x5team.ru"
     },
     "auth_mode": {
       "type": "string",

@@ -1,5 +1,5 @@
 {
-  "base_url": "https://pulsar.x5.ru",
+  "base_url": "https://xtracker.x5team.ru",
   "auth_mode": "api_key",
   "verify_ssl": true,
   "timeout": 30

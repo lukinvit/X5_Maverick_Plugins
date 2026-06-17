@@ -1,11 +1,11 @@
 # XTracker — MCP-плагин Jarvis ↔ трекер XTracker
 
-Чат-интеграция платформы Jarvis / X5 Maverick с внутренним issue-трекером **XTracker** (`pulsar.x5.ru`, класс Jira/YouTrack). Позволяет пользователю Jarvis искать, читать, создавать, обновлять, комментировать иссью, менять статус и назначать — прямо из чата.
+Чат-интеграция платформы Jarvis / X5 Maverick с внутренним issue-трекером **XTracker** (`xtracker.x5team.ru`, класс Jira/YouTrack). Позволяет пользователю Jarvis искать, читать, создавать, обновлять, комментировать иссью, менять статус и назначать — прямо из чата.
 
 ## Статус
 
 - **Операционная система:** готова (устав, доктрины, процесс, команда агентов). Адаптирована из mothership `X5_BM` — см. [`Product_agents/ADAPTATION.md`](Product_agents/ADAPTATION.md).
-- **v1-плагин:** ✅ **реализован** (`plugin/`, stdlib-only Python). Verify-gate пройден (64/64, `tests/protocol_qa.py` против мок-API). Пакет собран: `dist/xtracker-1.0.0.zip`. Финальный «Test connection» против живого `pulsar.x5.ru` — за оператором после загрузки.
+- **v1-плагин:** ✅ **реализован** (`plugin/`, stdlib-only Python). Verify-gate пройден (64/64, `tests/protocol_qa.py` против мок-API). Пакет собран: `dist/xtracker-1.0.0.zip`. Финальный «Test connection» против живого `xtracker.x5team.ru` — за оператором после загрузки.
 
 ## Что внутри каталога
 

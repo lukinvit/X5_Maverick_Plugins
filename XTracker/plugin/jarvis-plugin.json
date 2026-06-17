@@ -1,10 +1,10 @@
 {
   "slug": "xtracker",
   "name": "XTracker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "runtime": "python",
   "command": ["python", "server.py"],
-  "description": "Чат-интеграция Jarvis с issue-трекером XTracker (pulsar.x5.ru): поиск, чтение, создание, обновление, комментарии, смена статуса и назначение иссью.",
+  "description": "Чат-интеграция Jarvis с issue-трекером XTracker (xtracker.x5team.ru): поиск, чтение, создание, обновление, комментарии, смена статуса и назначение иссью.",
   "categories_default": ["integrations"],
   "config_schema_path": "config/schema.json",
   "config_ui_schema_path": "config/ui.schema.json",

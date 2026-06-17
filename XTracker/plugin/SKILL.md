@@ -1,7 +1,7 @@
 ---
 name: xtracker
 description: |
-  Работа с issue-трекером XTracker (pulsar.x5.ru) из чата: поиск, чтение,
+  Работа с issue-трекером XTracker (xtracker.x5team.ru) из чата: поиск, чтение,
   создание, обновление, комментирование, смена статуса и назначение иссью.
   Использовать когда пользователь: "найди задачу/иссью", "мои открытые задачи",
   "заведи баг/задачу", "поменяй статус", "назначь на", "прокомментируй задачу",
@@ -11,14 +11,14 @@ description: |
 license: MIT
 metadata:
   author: X5 Maverick Plugins
-  version: "1.0.0"
+  version: "1.0.1"
   category: integrations
 allowed-tools: xtracker__search_issues xtracker__get_issue xtracker__create_issue xtracker__update_issue xtracker__comment_issue xtracker__transition_issue xtracker__assign_issue xtracker__whoami xtracker__config_test_connection
 ---
 
 # XTracker
 
-Плагин-мост между чатом Jarvis и внутренним issue-трекером X5 **XTracker** (`pulsar.x5.ru`, класс Jira/YouTrack). Действует под сконфигурированной identity инстанса (сервис-аккаунт по API-ключу или вход по email/паролю); права определяются RBAC самого XTracker.
+Плагин-мост между чатом Jarvis и внутренним issue-трекером X5 **XTracker** (`xtracker.x5team.ru`, класс Jira/YouTrack). Действует под сконфигурированной identity инстанса (сервис-аккаунт по API-ключу или вход по email/паролю); права определяются RBAC самого XTracker.
 
 ## Выбор инструмента
 

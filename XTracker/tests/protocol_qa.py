@@ -2,7 +2,7 @@
 """Protocol-QA harness для плагина XTracker (verify-gate, P-15).
 
 Гоняет РЕАЛЬНЫЙ stdio JSON-RPC к процессу server.py с МОК-API XTracker
-(живой pulsar.x5.ru отсюда недоступен — финальный Test делает оператор).
+(живой xtracker.x5team.ru отсюда недоступен — финальный Test делает оператор).
 Проверяет: tools/list-схемы (P-7), happy + adversarial tools/call,
 idempotent-skip (P-3), отсутствие утечки секретов (P-1), structured_content
 + text-fallback (P-11), устойчивость процесса (P-5).
@@ -183,6 +183,20 @@ def run_suite(label, config, port):
 
         r = pg.call("get_issue", {"key": "PROJ-1"})
         check("get_issue card + text", not is_error(r) and "PROJ-1" in result_text(r))
+
+        # --- data visibility (bug #2): данные должны доходить до LLM/не-GUI, а не только в structured_content ---
+        rs = pg.call("search_issues", {"query": "status = open"})
+        st = result_text(rs)
+        check("search: ВСЕ иссью перечислены в text (§17.2/§17.6)", "PROJ-1" in st and "PROJ-2" in st)
+        check("search: _contextual json для LLM (§17.6)",
+              any(c.get("type") == "json" and c.get("json", {}).get("_contextual") for c in rs["result"]["content"]))
+        check("search: нет _meta.user_text, прячущего данные", "user_text" not in rs["result"].get("_meta", {}))
+        rg = pg.call("get_issue", {"key": "PROJ-1"})
+        gt = result_text(rg)
+        check("get_issue: полные детали в text (статус+приоритет+описание)",
+              all(x in gt for x in ["open", "high", "repro steps"]))
+        check("get_issue: _contextual json для LLM",
+              any(c.get("type") == "json" and c.get("json", {}).get("_contextual") for c in rg["result"]["content"]))
 
         r = pg.call("create_issue", {"queue_key": "PROJ", "summary": "x", "type": "bug",
                                      "priority": "high", "operation_id": "op-1"})

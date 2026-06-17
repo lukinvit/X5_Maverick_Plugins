@@ -5,9 +5,9 @@
 ## Внешний сервис
 
 - **Продукт:** XTracker — внутренний issue/project-трекер X5 класса Jira/YouTrack.
-- **База:** `https://pulsar.x5.ru` (свой SSL-сертификат — справка в `~/Downloads/pulsar-x5-ssl/`).
+- **База:** `https://xtracker.x5team.ru` (задаётся в `base_url` инстанса; при своём корневом сертификате — указать `ca_cert`).
 - **Природа:** 23 Go-микросервиса (auth, ticket, sprint, project, goals/OKR, workflow-engine, collaboration, timetracking, dashboard, query, search…), multi-tenant (organizations/tenants, RBAC по очередям). API: 350 путей / 513 операций / 272 схемы (OpenAPI 3.0.3).
-- **OpenAPI (справка, вне репо):** `~/Downloads/pulsar-x5-ssl/XTracker_Api.json` (1.2 MB) — читать по месту, не вшивать.
+- **OpenAPI (локальная справка, вне репо):** `XTracker_Api.json` (~1.2 MB, лежит в `~/Downloads/pulsar-x5-ssl/` — имя папки историческое, к хосту API отношения не имеет) — читать по месту, не вшивать.
 
 ## Аутентификация
 
@@ -20,13 +20,13 @@
 
 | Поле | Тип | Назначение |
 |---|---|---|
-| `base_url` | string (uri) | по умолчанию `https://pulsar.x5.ru` |
+| `base_url` | string (uri) | по умолчанию `https://xtracker.x5team.ru` |
 | `auth_mode` | enum `api_key`\|`password` | дефолт `api_key` |
 | `api_key` | string (secret) | при `auth_mode=api_key` |
 | `email` + `password` | string + secret | при `auth_mode=password` |
 | `organization` | string (опц.) | tenant/организация |
 | `default_queue` | string (опц.) | очередь по умолчанию для создания |
-| `verify_ssl` | bool (default true) | + опц. `ca_cert` (свой сертификат pulsar) |
+| `verify_ssl` | bool (default true) | + опц. `ca_cert` (если у XTracker свой корневой сертификат) |
 | `timeout` | integer | таймаут запроса, сек |
 
 ## Tools v1 (ядро иссью)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""XTracker MCP plugin — мост Jarvis ↔ issue-трекер XTracker (pulsar.x5.ru).
+"""XTracker MCP plugin — мост Jarvis ↔ issue-трекер XTracker (xtracker.x5team.ru).
 
 Ручной MCP-stdio JSON-RPC сервер (newline-delimited). Поддерживает
 initialize / tools/list / tools/call. Зависимостей нет — только stdlib.
@@ -19,7 +19,7 @@ import urllib.parse
 import urllib.request
 
 SLUG = "xtracker"
-DEFAULT_BASE_URL = "https://pulsar.x5.ru"
+DEFAULT_BASE_URL = "https://xtracker.x5team.ru"
 SEARCH_LIMIT_DEFAULT = 20
 SEARCH_LIMIT_MAX = 100
 
@@ -62,15 +62,23 @@ def _error(req_id, text, code="XTRACKER_ERROR"):
     })
 
 
-def _structured(req_id, text, template_id, data, actions=None, user_text=None):
-    # P-11: structured_content всегда с text-fallback; не уходит в LLM-контекст.
+def _data_result(req_id, text, contextual, template_id, data, actions=None):
+    """Dual-response (spec §17.6): данные доходят до LLM/не-GUI И до UI.
+
+    - text — читаемое резюме С ДАННЫМИ (LLM + клиенты без Generative UI, §17.2);
+    - json `_contextual` — структурированные данные для LLM (payload);
+    - structured_content — интерактивный UI (НЕ в LLM-контексте, P-11).
+    Без `_meta.user_text` — он бы скрыл text и спрятал данные (баг 2026-06-17)."""
     sc = {"template_id": template_id, "data": data}
     if actions:
         sc["actions"] = actions
-    content = [{"type": "text", "text": text},
-               {"type": "structured_content", "json": sc}]
-    meta = {"user_text": user_text} if user_text else None
-    _ok(req_id, content, meta)
+    ctx = dict(contextual)
+    ctx["_contextual"] = True
+    _ok(req_id, [
+        {"type": "text", "text": text},
+        {"type": "json", "json": ctx},
+        {"type": "structured_content", "json": sc},
+    ])
 
 
 # ------------------------------------------------------------------------- HTTP
@@ -254,21 +262,29 @@ def _t_search_issues(req_id, args, cfg):
         issues = body
     total = (body.get("total") if isinstance(body, dict) else None) or len(issues)
     shown = issues[:limit]  # P-16: bounded results
-    text = "Найдено иссью: %s (показано %s)." % (total, len(shown))
-    if shown:
-        text += " Первая: %s — %s." % (shown[0].get("key", "?"), _issue_title(shown[0]))
+    lines = ["Найдено иссью: %s (показано %s)." % (total, len(shown))]
     items = []
+    ctx_issues = []
     for it in shown:
         key = it.get("key", "?")
+        title = _issue_title(it)
+        bits = [b for b in [str(it.get("status") or ""), str(it.get("type") or ""),
+                            str(it.get("priority") or ""),
+                            ("исп. " + str(it["assignee"])) if it.get("assignee") else ""] if b]
+        lines.append("• %s — %s%s" % (key, title, (" [" + ", ".join(bits) + "]") if bits else ""))
         items.append({
-            "title": "%s — %s" % (key, _issue_title(it)),
+            "title": "%s — %s" % (key, title),
             "badge": str(it.get("status") or ""),
             "fields": _issue_card_fields(it),
             "actions": _issue_actions(key),
         })
-    _structured(req_id, text, "preset:card_list",
-                {"title": "Поиск: %s" % query, "total_count": total, "items": items},
-                user_text="Найдено иссью: %s" % total)
+        ctx_issues.append({"key": key, "title": title, "status": it.get("status"),
+                           "assignee": it.get("assignee"), "type": it.get("type"),
+                           "priority": it.get("priority"), "queue_key": it.get("queue_key")})
+    _data_result(req_id, "\n".join(lines),
+                 {"issues": ctx_issues, "total": total, "query": query},
+                 "preset:card_list",
+                 {"title": "Поиск: %s" % query, "total_count": total, "items": items})
 
 
 def _t_get_issue(req_id, args, cfg):
@@ -279,15 +295,25 @@ def _t_get_issue(req_id, args, cfg):
     status, issue = _request(cfg, "GET", "/api/v1/issues/" + urllib.parse.quote(key), token=token)
     if status != 200:
         return _error(req_id, _http_error_text(status, issue), code="GET")
-    text = "%s — %s. Статус: %s. Исполнитель: %s." % (
-        issue.get("key", key), _issue_title(issue),
-        issue.get("status", "—"), issue.get("assignee", "не назначен"))
-    data = {"title": "%s — %s" % (issue.get("key", key), _issue_title(issue)),
+    ikey = issue.get("key", key)
+    lines = ["%s — %s" % (ikey, _issue_title(issue))]
+    for label, val in [("Очередь", issue.get("queue_key")), ("Статус", issue.get("status")),
+                       ("Тип", issue.get("type")), ("Приоритет", issue.get("priority")),
+                       ("Исполнитель", issue.get("assignee")), ("Репортёр", issue.get("reporter"))]:
+        if val:
+            lines.append("%s: %s" % (label, val))
+    if issue.get("description"):
+        lines.append("Описание: %s" % issue["description"])
+    text = "\n".join(lines)
+    ctx = {"issue": {k: issue.get(k) for k in
+                     ("key", "title", "queue_key", "status", "type", "priority",
+                      "assignee", "reporter", "description") if issue.get(k) is not None}}
+    data = {"title": "%s — %s" % (ikey, _issue_title(issue)),
             "subtitle": issue.get("queue_key", ""),
             "badge": str(issue.get("status") or ""),
             "fields": _issue_card_fields(issue) +
                       ([{"label": "Описание", "value": issue["description"]}] if issue.get("description") else [])}
-    _structured(req_id, text, "preset:card", data, actions=_issue_actions(issue.get("key", key)))
+    _data_result(req_id, text, ctx, "preset:card", data, actions=_issue_actions(ikey))
 
 
 def _dedup(tool, args):
@@ -548,7 +574,7 @@ def main():
             _send({"jsonrpc": "2.0", "id": mid, "result": {
                 "protocolVersion": "2024-11-05",
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": SLUG, "version": "1.0.0"}}})
+                "serverInfo": {"name": SLUG, "version": "1.0.1"}}})
         elif method == "notifications/initialized" or method == "initialized":
             continue
         elif method == "tools/list":
