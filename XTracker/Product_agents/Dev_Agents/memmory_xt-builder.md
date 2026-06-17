@@ -1,6 +1,6 @@
 # memmory_xt-builder
 
-> Конвенция: [MEMORY_CONVENTION.md](MEMORY_CONVENTION.md). Append-only, ≤1500 строк, без секретов.
+> Конвенция: [MEMORY_CONVENTION.md](../../../_platform/MEMORY_CONVENTION.md). Append-only, ≤1500 строк, без секретов.
 
 ## Долгосрочные уроки
 (пока пусто — заполняется по итогам прогонов)

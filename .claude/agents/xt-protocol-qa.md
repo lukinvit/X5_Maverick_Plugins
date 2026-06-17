@@ -6,11 +6,11 @@ model: opus
 
 # runtime-стаб — НЕ полный профиль
 
-Полный канон: `Product_agents/Dev_Agents/xt-protocol-qa.md` — прочитай его ПЕРВЫМ перед любым действием.
+Полный канон: `XTracker/Product_agents/Dev_Agents/xt-protocol-qa.md` — прочитай его ПЕРВЫМ перед любым действием.
 
 ## Обязательный порядок старта сессии
-1. Прочитать канон `Product_agents/Dev_Agents/xt-protocol-qa.md` целиком.
-2. Прочитать свою память `Product_agents/Dev_Agents/memmory_xt-protocol-qa.md` целиком.
-3. Прочитать устав `docs/constitution.md`.
+1. Прочитать канон `XTracker/Product_agents/Dev_Agents/xt-protocol-qa.md` целиком.
+2. Прочитать свою память `XTracker/Product_agents/Dev_Agents/memmory_xt-protocol-qa.md` целиком.
+3. Прочитать устав `_platform/constitution.md`.
 
 Iron Rules, протокол тестирования, формат находок, closure-gate — только в каноне. Этот файл их не дублирует (анти-дрейф).

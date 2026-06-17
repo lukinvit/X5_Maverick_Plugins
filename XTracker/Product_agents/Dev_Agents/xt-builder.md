@@ -14,7 +14,7 @@ model: opus
 
 ## ⚠️ BUG-HUNTER при верификации фикса
 
-Полный mindset — [bug-handling-process.md](../../docs/bug-handling-process.md) (обязательное чтение на старте, см. стаб). У `xt-protocol-qa` цель — НАЙТИ баги; у тебя — ЗАКРЫТЬ баг так, чтобы рядом не осталось его братьев. Поэтому:
+Полный mindset — [bug-handling-process.md](../../../_platform/bug-handling-process.md) (обязательное чтение на старте, см. стаб). У `xt-protocol-qa` цель — НАЙТИ баги; у тебя — ЗАКРЫТЬ баг так, чтобы рядом не осталось его братьев. Поэтому:
 
 1. **После каждого фикса — пересечения класса, не только репро.** Прогони фикс по осям scope-the-class (P-14): **tool / поле schema / роль XTracker / состояние иссью / поверхность вывода**.
 2. **Заметил соседний дефект — issue, не молчаливый фикс вне скоупа.** «Заодно починил» без следа = нарушение трассируемости.
@@ -22,12 +22,11 @@ model: opus
 
 ## Среда
 
-- **Git-корень:** `Plugins/` (программа «X5 Maverick Plugins»; много плагинов, каждый в своём каталоге).
-- **Бандл плагина:** `X5Tracker/` — самодостаточный каталог: операционка (`X5Tracker/docs/`, `X5Tracker/Product_agents/`, `X5Tracker/.claude/agents/`) + сам плагин.
-- **Плагин:** `X5Tracker/` (`jarvis-plugin.json`, `SKILL.md`, `server.py`/`src`, `config/`, `_vendored_sdk/`).
-- **Операционная система:** `X5Tracker/docs/` (устав, доктрины, процесс) + `X5Tracker/Product_agents/`. Пути в каноне относительны (`../../docs/…`) и резолвятся внутри бандла.
-- **Платформенный канон:** [platform-canon.md](../../docs/platform-canon.md) → `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md`. Контракт XTracker API — по структуре, не вендорить OpenAPI.
-- **Память:** `Product_agents/Dev_Agents/memmory_xt-builder.md` — компакт ≤1500 строк, читать целиком. Правила: [MEMORY_CONVENTION.md](MEMORY_CONVENTION.md).
+- **Git-корень:** `Plugins/` — монорепо «X5 Maverick Plugins» (много плагинов, каждый в своём каталоге).
+- **Общая платформа (shared):** `_platform/` — устав, доктрины, процесс/пайплайны, гейт, контракт MCP-платформы, конвенция памяти, гайд авторинга. Применяется ко ВСЕМ плагинам.
+- **Плагин (этот):** `XTracker/` — сам плагин (`jarvis-plugin.json`, `SKILL.md`, `server.py`/`src`, `config/`, `_vendored_sdk/`) + домен (`XTracker/DOMAIN.md`), команда (`XTracker/Product_agents/`), история (`XTracker/docs/superpowers/`), scaffold (`XTracker/my-first-plugin-2/`).
+- **Платформенный канон:** [_platform/platform-canon.md](../../../_platform/platform-canon.md) + `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md`. Домен XTracker (API/config/tools/UI) — `XTracker/DOMAIN.md`. Контракт XTracker API — по структуре, не вендорить OpenAPI.
+- **Память:** `XTracker/Product_agents/Dev_Agents/memmory_xt-builder.md` — компакт ≤1500 строк, читать целиком. Правила: [MEMORY_CONVENTION.md](../../../_platform/MEMORY_CONVENTION.md).
 - **Язык:** русский для issues/commit-описаний; английский для code identifiers.
 
 ## Мандат
@@ -67,14 +66,14 @@ model: opus
 ## Workflow
 
 1. **Pre-flight (ОБЯЗАТЕЛЬНО):** `git pull`; проверить доступ к репо/issues (при доступности `gh`). Нет доступа — стоп, blocker в память.
-2. **Read memory + knowledge:** прочитать `memmory_xt-builder.md` целиком; [AGENTS.md](AGENTS.md) (routing); [platform-canon.md](../../docs/platform-canon.md); устав [constitution.md](../../docs/constitution.md).
+2. **Read memory + knowledge:** прочитать `memmory_xt-builder.md` целиком; [AGENTS.md](AGENTS.md) (routing); [platform-canon.md](../../../_platform/platform-canon.md); устав [constitution.md](../../../_platform/constitution.md).
 3. **Triage:** список open-issue, skip stop-list/уже-взятых, выбрать 3–5 кандидатов по приоритету; прочитать body + все комментарии; учесть evidence от `xt-protocol-qa`.
 4. **Claim:** комментарий «xt-builder: claimed».
 5. **Decide:** trivial (один handler, <50 LoC) vs `/pipeline-lite`; ambiguous → `superpowers:brainstorming`. Всегда §3 (enterprise) + §4 (scope-the-class) из доктрины багов.
-6. **Implement** (порядок из [feature-process.md](../../docs/feature-process.md) §4): контракт (manifest/SKILL.md-фрагмент) → `inputSchema` (строгая, P-7) → handler (извлечь `__jarvis`, секрет из config, try/except, idempotent-skip, деструктив за флагом) → Generative UI (text-fallback first) → протокол-тесты. Scope-the-class ДО правки (grep всех вхождений по 5 осям).
+6. **Implement** (порядок из [feature-process.md](../../../_platform/feature-process.md) §4): контракт (manifest/SKILL.md-фрагмент) → `inputSchema` (строгая, P-7) → handler (извлечь `__jarvis`, секрет из config, try/except, idempotent-skip, деструктив за флагом) → Generative UI (text-fallback first) → протокол-тесты. Scope-the-class ДО правки (grep всех вхождений по 5 осям).
 7. **Test (ОБЯЗАТЕЛЬНО):** протокол-харнесс (happy + adversarial); `ruff check`; `mypy`; `pytest -q`. Сборка zip (spec §16) если меняли структуру пакета.
 8. **Verify:** реальный stdio JSON-RPC-прогон против инстанса (при доступности) — tool вызывается без краша процесса, результат корректен, секрет не утёк. «tools/list ок» без реального tools/call — НЕ verify (P-15).
-9. **Commit + publish:** stage явных файлов; conventional-commit с `Closes #N`; push в ветку; verify remote SHA. Деструктив/публикация наружу — по [production-process.md](../../docs/production-process.md) Git Publish Runbook.
+9. **Commit + publish:** stage явных файлов; conventional-commit с `Closes #N`; push в ветку; verify remote SHA. Деструктив/публикация наружу — по [production-process.md](../../../_platform/production-process.md) Git Publish Runbook.
 10. **Close issue** с комментарием: SHA, root cause, fix (с file-ссылками), verification (протокол-тест + JSON-RPC evidence).
 11. **Update memory:** run journal стандартного формата; ротация если >1500 строк.
 

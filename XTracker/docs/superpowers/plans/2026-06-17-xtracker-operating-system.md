@@ -29,9 +29,9 @@
 
 ## File Structure
 
-> **Обновление 2026-06-17 (релокация в бандл).** Все пути ниже фактически живут под `X5Tracker/` (монорепо `Plugins/` под много плагинов). Т.е. `docs/constitution.md` → `X5Tracker/docs/constitution.md`, `.claude/agents/*` → `X5Tracker/.claude/agents/*` и т.д. Внутрибандловые относительные ссылки сохранены.
+> **Обновление 2026-06-17 (монорепо-раскладка).** Финальная раскладка отличается от дерева ниже: общие доки (constitution, доктрины, process, gate, platform-canon, MEMORY_CONVENTION) живут в `_platform/`; команда агентов, домен и история — в `XTracker/` (`XTracker/Product_agents/`, `XTracker/DOMAIN.md`, `XTracker/docs/superpowers/`); стабы — в корне репо `.claude/agents/`. Т.е. `docs/constitution.md` → `_platform/constitution.md`, `Product_agents/*` → `XTracker/Product_agents/*`.
 
-All paths relative to the bundle root (`Plugins/X5Tracker/`). Author order matches task order: docs first (agents reference them), then agents, then index/provenance, then validation.
+Paths below are the original plan (root-relative); see the note above for the final monorepo layout. Author order matches task order: docs first (agents reference them), then agents, then index/provenance, then validation.
 
 | File | Responsibility |
 |---|---|

@@ -4,22 +4,27 @@
 
 Кросс-агентный справочник команды MCP-плагина XTracker: где что лежит, кто за что отвечает, как публиковать. Хранитель файла — `xt-scribe` (guardianship).
 
-> **Переходная оговорка.** Бандл плагина — `X5Tracker/` в репозитории `Plugins/` (монорепо: много плагинов, каждый в своём каталоге). Все пути в этом файле относительны корню бандла `X5Tracker/`. Сам v1-плагин XTracker (`X5Tracker/`: `jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) ещё не реализован — он строится первой фичей через `/pipeline-lite` (см. `docs/production-process.md`). До этого момента у агентов есть устав, доктрины и процесс, но боевых прогонов против плагина ещё не было.
+> **Структура.** Репо `Plugins/` — монорепо «X5 Maverick Plugins» (много плагинов, каждый в своём каталоге). **Общая платформа** (устав, доктрины, процесс, гейт, контракт, гайд) — в `_platform/`, применяется ко всем плагинам. **Этот плагин** — в `XTracker/` (команда, домен, история, исходники). Пути ниже — от корня репо. Сам v1-плагин XTracker (`XTracker/`: `jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) ещё не реализован — он строится первой фичей через `/pipeline-lite` (см. `_platform/production-process.md`). До этого момента у агентов есть устав, доктрины и процесс, но боевых прогонов против плагина ещё не было.
 
-## Canonical Locations
+## Canonical Locations (пути от корня репо)
 
 | Что | Где |
 |---|---|
-| Устав (apex) | `docs/constitution.md` |
-| Доктрины | `docs/bug-handling-process.md`, `docs/feature-process.md` |
-| Процесс + гейты | `docs/production-process.md`, `docs/constitution-check.md` |
-| Платформенный канон + контракт API | `docs/platform-canon.md` → `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` |
-| Каноны агентов (полные профили) | `Product_agents/Dev_Agents/xt-{builder,protocol-qa,scribe}.md` |
-| Тонкие стабы → канон | `.claude/agents/xt-{builder,protocol-qa,scribe}.md` |
-| Память агентов | `Product_agents/Dev_Agents/memmory_xt-*.md` |
-| Конвенция памяти | `Product_agents/Dev_Agents/MEMORY_CONVENTION.md` |
-| Провенанс адаптации | `Product_agents/ADAPTATION.md` |
-| Плагин (цель) | `X5Tracker/` (корень бандла: `jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) |
+| **Общая платформа (shared)** | |
+| Устав (apex) | `_platform/constitution.md` |
+| Доктрины | `_platform/bug-handling-process.md`, `_platform/feature-process.md` |
+| Процесс + гейты | `_platform/production-process.md`, `_platform/constitution-check.md` |
+| Платформенный канон | `_platform/platform-canon.md` → `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` |
+| Гайд авторинга плагинов | `_platform/PLUGIN_AUTHORING_GUIDE.md` |
+| Конвенция памяти | `_platform/MEMORY_CONVENTION.md` |
+| **Этот плагин (XTracker)** | |
+| Домен (API/config/tools/UI) | `XTracker/DOMAIN.md` |
+| Каноны агентов (полные профили) | `XTracker/Product_agents/Dev_Agents/xt-{builder,protocol-qa,scribe}.md` |
+| Память агентов | `XTracker/Product_agents/Dev_Agents/memmory_xt-*.md` |
+| Провенанс адаптации | `XTracker/Product_agents/ADAPTATION.md` |
+| История (спека+план) | `XTracker/docs/superpowers/` |
+| Тонкие стабы → канон | `.claude/agents/xt-{builder,protocol-qa,scribe}.md` (корень репо, дискаверятся Claude Code) |
+| Плагин (цель) | `XTracker/` (`jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) |
 
 ## Start-Of-Run Commands
 

@@ -36,7 +36,7 @@ model: opus
 5. **Чеклист description:** содержит конкретные фразы пользователя; содержит негативные триггеры («НЕ использовать для…»); упоминает ключевые сущности (иссью, статус, спринт); укладывается в лимит; без `<>`.
 
 ## Источники истины
-Приоритет: живое поведение плагина (JSON-RPC) и контракт XTracker API (по структуре) > устав [constitution.md](../../docs/constitution.md) + платформенный канон [platform-canon.md](../../docs/platform-canon.md) (+ spec) > код плагина (`XTracker/`) > существующие доки. В документе указывай дату проверки. Конфликт — верь живому, не старой доке (P-15).
+Приоритет: живое поведение плагина (JSON-RPC) и контракт XTracker API (по структуре) > устав [constitution.md](../../../_platform/constitution.md) + платформенный канон [platform-canon.md](../../../_platform/platform-canon.md) (+ spec) > код плагина (`XTracker/`) > существующие доки. В документе указывай дату проверки. Конфликт — верь живому, не старой доке (P-15).
 
 ## Как работаешь с задачей
 1. Определи аудиторию: пользователь Jarvis (через `SKILL.md`/описания tools), разработчик плагина (README/docs), QA/агент.
@@ -53,7 +53,7 @@ model: opus
 Периодически сверяй: совпадает ли `SKILL.md` с реальным `tools/list`; не описаны ли несуществующие tools/поля; не устарел ли README относительно состава tools. Расхождение — issue или правка.
 
 ## Публикация
-Перед close/comment GitHub issue — по [production-process.md](../../docs/production-process.md) Git Publish Runbook: published SHA + verify + комментарий. Нет доступа — blocker в память, issue не закрывать.
+Перед close/comment GitHub issue — по [production-process.md](../../../_platform/production-process.md) Git Publish Runbook: published SHA + verify + комментарий. Нет доступа — blocker в память, issue не закрывать.
 
 ## Память
-Перед работой — прочитать `memmory_xt-scribe.md` целиком (правила: [MEMORY_CONVENTION.md](MEMORY_CONVENTION.md)). После — append-only журнал. Без секретов.
+Перед работой — прочитать `memmory_xt-scribe.md` целиком (правила: [MEMORY_CONVENTION.md](../../../_platform/MEMORY_CONVENTION.md)). После — append-only журнал. Без секретов.

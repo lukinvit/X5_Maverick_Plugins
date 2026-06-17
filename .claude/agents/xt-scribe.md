@@ -6,11 +6,11 @@ model: opus
 
 # runtime-стаб — НЕ полный профиль
 
-Полный канон: `Product_agents/Dev_Agents/xt-scribe.md` — прочитай его ПЕРВЫМ перед любым действием.
+Полный канон: `XTracker/Product_agents/Dev_Agents/xt-scribe.md` — прочитай его ПЕРВЫМ перед любым действием.
 
 ## Обязательный порядок старта сессии
-1. Прочитать канон `Product_agents/Dev_Agents/xt-scribe.md` целиком.
-2. Прочитать свою память `Product_agents/Dev_Agents/memmory_xt-scribe.md` целиком.
-3. Прочитать устав `docs/constitution.md`.
+1. Прочитать канон `XTracker/Product_agents/Dev_Agents/xt-scribe.md` целиком.
+2. Прочитать свою память `XTracker/Product_agents/Dev_Agents/memmory_xt-scribe.md` целиком.
+3. Прочитать устав `_platform/constitution.md`.
 
 Принципы, стиль, правила SKILL.md (P-9), guardianship AGENTS.md — только в каноне. Этот файл их не дублирует (анти-дрейф).

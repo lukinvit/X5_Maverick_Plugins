@@ -48,8 +48,13 @@ Evidence DoD-чеклиста (§8 пайплайна mothership):
 - **Version-probe (зеро-траст, свежие субагенты):** xt-builder / xt-protocol-qa / xt-scribe — все PASS (стаб→канон резолвится, проект = XTracker-плагин, дрейфа нет; QA тестирует через stdio JSON-RPC).
 - **Constitution-Check self-тест:** `spec-bad` → FLAG P-1/P-7/P-2 (`MUST-FLAG ≥ 3`), `spec-clean` → `MUST-FLAG: 0` — согласовано.
 
-**Остаток (следующая итерация):** v1-плагин XTracker (`X5Tracker/`: `jarvis-plugin.json`, `SKILL.md`, `config/`, `server.py` + tools ядра иссью, vendored SDK) + протокол-харнесс — строятся первой фичей через `/pipeline-lite` (отдельный план).
+**Остаток (следующая итерация):** v1-плагин XTracker (`XTracker/`: `jarvis-plugin.json`, `SKILL.md`, `config/`, `server.py` + tools ядра иссью, vendored SDK) + протокол-харнесс — строятся первой фичей через `/pipeline-lite` (отдельный план).
 
-## Релокация в бандл (2026-06-17)
+## Структура репо (2026-06-17, релокация)
 
-По решению владельца вся операционка и плагин уложены в самодостаточный каталог `X5Tracker/` (репо `Plugins/` — монорепо под много плагинов; корень остаётся чистым). Перемещены `docs/`, `Product_agents/`, `.claude/agents/` → `X5Tracker/…`; внутрибандловые относительные ссылки сохранены. Платформенный spec (`XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md`) — общий reference, остаётся на месте (repo-root-relative). Чтобы агенты подхватились в Claude Code, рабочим корнем открывать `X5Tracker/` (вложенный `.claude/agents/` не автодискаверится из корня репо).
+Репо `Plugins/` — **монорепо под много плагинов**, корень чистый, два слоя:
+- **`_platform/`** — общая операционка для ВСЕХ плагинов: устав, доктрины, процесс/пайплайны, гейт, контракт MCP-платформы, конвенция памяти, `PLUGIN_AUTHORING_GUIDE.md`.
+- **`XTracker/`** — этот плагин: команда агентов (`Product_agents/`), домен (`DOMAIN.md`), история (`docs/superpowers/`), scaffold (`my-first-plugin-2/`), исходники плагина.
+- **`.claude/agents/`** — тонкие стабы в корне репо (дискаверятся Claude Code), указывают на каноны в `XTracker/Product_agents/`.
+
+Платформенный spec (`XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md`) — общий reference. Новый плагин = новый каталог + свой `DOMAIN.md`/`SKILL.md` (+ при необходимости своя команда); устав/процесс/гайд берутся из `_platform/` (см. `_platform/PLUGIN_AUTHORING_GUIDE.md`).

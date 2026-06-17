@@ -154,8 +154,8 @@ XTracker-плагин — это мост между чатом Jarvis и вну
 | Контракт платформы (MCP-плагины) + контракт XTracker API | [platform-canon.md](platform-canon.md) → `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` | P-4, P-5, P-6, P-7, P-9, P-10, P-11 |
 | Доктрина новых фич (новый tool/кластер) | [feature-process.md](feature-process.md) | P-13 |
 | Производственный процесс / гейты | [production-process.md](production-process.md) + [constitution-check.md](constitution-check.md) | все P-1…P-16 |
-| Команда агентов / маршрутизация | [../Product_agents/Dev_Agents/AGENTS.md](../Product_agents/Dev_Agents/AGENTS.md) | P-14, P-15 |
-| Конвенция памяти агентов | [../Product_agents/Dev_Agents/MEMORY_CONVENTION.md](../Product_agents/Dev_Agents/MEMORY_CONVENTION.md) | P-1, P-15 |
+| Команда агентов / маршрутизация | [../Product_agents/Dev_Agents/AGENTS.md](../XTracker/Product_agents/Dev_Agents/AGENTS.md) | P-14, P-15 |
+| Конвенция памяти агентов | [../Product_agents/Dev_Agents/MEMORY_CONVENTION.md](MEMORY_CONVENTION.md) | P-1, P-15 |
 
 > При расхождении устава и доменного канона по **принципу** — приоритетен устав. По **детали реализации** — приоритетен канон домена.
 
