@@ -9,7 +9,7 @@
 | PROJECT_NAME | X5 Maverick Plugins / XTracker |
 | PROJECT_KEY | XT |
 | PROJECT_ROOT | `Plugins/` (git-корень) |
-| GH_REPO | `lukinvit/X5_Maverick_Plugins` (origin); зеркало X5: `scm.x5.ru/airun/copilot/devops/X5_Maverick_Plugins` (remote `x5`) |
+| GH_REPO | `lukinvit/X5_Maverick_Plugins` (origin, GitHub). Личный репозиторий на scm.x5.ru — в процессе создания. |
 | Платформа | Jarvis / X5 Maverick (MCP-плагины, stdio JSON-RPC, zip) |
 | Цель-плагин | XTracker — issue-трекер X5 (`xtracker.x5team.ru`), v1 = ядро иссью |
 | UPSTREAM_SHA (mothership) | `c87e9ee6` (X5_BM, экспорт 2026-06-13) |
