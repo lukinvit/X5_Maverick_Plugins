@@ -35,7 +35,7 @@
 
 ---
 
-## 2. Конституция: 15 инвариантов под класс MCP-плагинов
+## 2. Конституция: 16 инвариантов под класс MCP-плагинов
 
 Формат канона: **MUST** · _Зачем_ · _Как проверить_ · _Источник_. Здесь — сводка; полный текст пишется в `docs/constitution.md`.
 
@@ -64,7 +64,10 @@
 - **P-14 Root-Cause + Scope-the-Class (MUST).** На любой баг — `superpowers:systematic-debugging` до фикса (repro → root cause → fix); чинить весь класс по осям: **tool / поле schema / роль XTracker / состояние иссью / поверхность вывода**. _Источник:_ I-12.
 - **P-15 Zero-Trust Verification (MUST).** Любой claim («работает», «tools/list ок», «idempotent») — только со свежим evidence, добытым проверяющим (реальный JSON-RPC-прогон), желательно на другой оси. Память устаревает — верь живому коду/API. _Источник:_ I-13.
 
-**Опущены из mothership** (про серверный Go-продукт, не про плагин-клиент): I-3 audit-триггеры, I-4 clean-architecture слоёв/NATS, I-9 Prometheus/health, I-10 deploy.sh/миграции, I-15 optimistic-concurrency. _Открытый пункт:_ нужен ли **P-16 Bounded Queries** (пагинация/лимиты при поиске иссью, чтобы не тянуть тысячи) — кандидат при росте v1.
+### 🗄 Целостность под объёмом
+- **P-16 Bounded Results (SHOULD).** Поиск/списки иссью ограничены: явный `limit` (с дефолтом и максимумом) + пагинация по контракту XTracker; не тянуть тысячи иссью в один tool-результат — это раздувает MCP-IPC и context-window агента (и снижает качество планирования LLM). Большие выгрузки — через `upload_file` (P-11). _Проверка:_ у `search_issues` есть `limit` с `maximum`; нет неограниченной выдачи. _Источник:_ I-15 (bounded queries) → spec §5.3, §20.
+
+**Опущены из mothership** (про серверный Go-продукт, не про плагин-клиент): I-3 audit-триггеры, I-4 clean-architecture слоёв/NATS, I-9 Prometheus/health, I-10 deploy.sh/миграции, I-15 optimistic-concurrency (берём только половину «bounded queries» как P-16).
 
 **Поправки/enforcement:** semver устава (MAJOR удаление инварианта / MINOR добавление / PATCH формулировка); журнал поправок; Constitution-Check как gate в Stage-2 (см. §5).
 
@@ -141,7 +144,7 @@ Plugins/                          # git-корень
 - **slug:** `xtracker` · **name:** «XTracker» · **runtime:** Python, **ручной stdio JSON-RPC** по spec §15.1 (полный контроль над `__jarvis`, structured_content, `_meta`; FastMCP-scaffold заменяем — он не извлекает `__jarvis`).
 - **Config (`__jarvis.config`, схема в `config/schema.json`):**
   - `base_url` (default `https://pulsar.x5.ru`)
-  - `auth_mode` (`api_key` | `password`)
+  - `auth_mode` (`api_key` | `password`; **default `api_key`** — сервис-аккаунт, scoped, долгоживущий)
   - `api_key` (secret) **или** `email` + `password` (secret)
   - `organization` (опц.), `default_queue` (опц.)
   - `verify_ssl` (bool, default true) + опц. `ca_cert` (у pulsar свой сертификат — см. `pulsar-x5-ssl/`)
@@ -181,8 +184,8 @@ Plugins/                          # git-корень
 
 ---
 
-## 9. Открытые вопросы (на ревью спеки)
-1. **P-16 Bounded Queries** — добавлять сейчас (лимиты/пагинация поиска) или отложить? (склоняюсь добавить как SHOULD.)
-2. **Auth по умолчанию** — `api_key` (сервис-аккаунт, рекомендую) vs `password`. Оба поддержим; какой дефолт в `defaults.json`?
-3. **Судьба `my-first-plugin-2`** — оставить как reference (план по умолчанию) или перенести `mcp_plugins_dev_spec.md` в `docs/` и удалить scaffold?
-4. **Объём первой реализации** — авторим всю операционную систему (A+B) сразу, или сначала устав+1 агент (xt-builder) + v1-плагин, остальное фазой 2?
+## 9. Решённые вопросы (владелец, 2026-06-17 — «по дефолтам»)
+1. **P-16 Bounded Results** — добавлен как SHOULD (см. §2, группа «Целостность под объёмом»).
+2. **Auth по умолчанию** — `api_key` (сервис-аккаунт). Оба режима поддержим; `defaults.json` → `auth_mode: "api_key"`.
+3. **`my-first-plugin-2`** — оставляем как reference, не удаляем и не переносим в этой итерации.
+4. **Объём первой реализации** — авторим всю операционную систему (поставка §8 A+B: устав + доктрины + процесс + 3 агента/стабы/память/AGENTS.md), затем v1-плагин (§8 C+D) идёт первой фичей через `/pipeline-lite`.
