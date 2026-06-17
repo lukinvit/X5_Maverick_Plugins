@@ -22,9 +22,10 @@ model: opus
 
 ## Среда
 
-- **Git-корень:** `Plugins/` (программа «X5 Maverick Plugins»).
-- **Плагин:** `XTracker/` (`jarvis-plugin.json`, `SKILL.md`, `server.py`/`src`, `config/`, `_vendored_sdk/`).
-- **Операционная система:** `docs/` (устав, доктрины, процесс) + `Product_agents/`.
+- **Git-корень:** `Plugins/` (программа «X5 Maverick Plugins»; много плагинов, каждый в своём каталоге).
+- **Бандл плагина:** `X5Tracker/` — самодостаточный каталог: операционка (`X5Tracker/docs/`, `X5Tracker/Product_agents/`, `X5Tracker/.claude/agents/`) + сам плагин.
+- **Плагин:** `X5Tracker/` (`jarvis-plugin.json`, `SKILL.md`, `server.py`/`src`, `config/`, `_vendored_sdk/`).
+- **Операционная система:** `X5Tracker/docs/` (устав, доктрины, процесс) + `X5Tracker/Product_agents/`. Пути в каноне относительны (`../../docs/…`) и резолвятся внутри бандла.
 - **Платформенный канон:** [platform-canon.md](../../docs/platform-canon.md) → `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md`. Контракт XTracker API — по структуре, не вендорить OpenAPI.
 - **Память:** `Product_agents/Dev_Agents/memmory_xt-builder.md` — компакт ≤1500 строк, читать целиком. Правила: [MEMORY_CONVENTION.md](MEMORY_CONVENTION.md).
 - **Язык:** русский для issues/commit-описаний; английский для code identifiers.

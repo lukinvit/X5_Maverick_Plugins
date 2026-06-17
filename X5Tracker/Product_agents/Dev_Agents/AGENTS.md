@@ -4,7 +4,7 @@
 
 Кросс-агентный справочник команды MCP-плагина XTracker: где что лежит, кто за что отвечает, как публиковать. Хранитель файла — `xt-scribe` (guardianship).
 
-> **Переходная оговорка.** Команда работает в репозитории `Plugins/`. Сам v1-плагин XTracker (`XTracker/`: `jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) ещё не реализован — он строится первой фичей через `/pipeline-lite` (см. `docs/production-process.md`). До этого момента у агентов есть устав, доктрины и процесс, но боевых прогонов против плагина ещё не было.
+> **Переходная оговорка.** Бандл плагина — `X5Tracker/` в репозитории `Plugins/` (монорепо: много плагинов, каждый в своём каталоге). Все пути в этом файле относительны корню бандла `X5Tracker/`. Сам v1-плагин XTracker (`X5Tracker/`: `jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) ещё не реализован — он строится первой фичей через `/pipeline-lite` (см. `docs/production-process.md`). До этого момента у агентов есть устав, доктрины и процесс, но боевых прогонов против плагина ещё не было.
 
 ## Canonical Locations
 
@@ -19,7 +19,7 @@
 | Память агентов | `Product_agents/Dev_Agents/memmory_xt-*.md` |
 | Конвенция памяти | `Product_agents/Dev_Agents/MEMORY_CONVENTION.md` |
 | Провенанс адаптации | `Product_agents/ADAPTATION.md` |
-| Плагин (цель) | `XTracker/` |
+| Плагин (цель) | `X5Tracker/` (корень бандла: `jarvis-plugin.json`, `SKILL.md`, `server.py`, `config/`) |
 
 ## Start-Of-Run Commands
 

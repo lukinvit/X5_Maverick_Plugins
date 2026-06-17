@@ -41,11 +41,15 @@
 
 Evidence DoD-чеклиста (§8 пайплайна mothership):
 - **Стабы:** все 3 — 16 строк (≤35), маркер `runtime-стаб`, frontmatter byte-identical каноном (diff пуст).
-- **Литералы mothership:** в `docs/` (кроме `docs/superpowers/` — design-spec/plan, законно ссылаются на mothership), `Product_agents/`, `.claude/agents/` — не найдено (grep `boardmaps|bm.lukinvit.tech|lukinvit/X5_BM|loadXForCaller|кворум|208-ФЗ` пуст).
+- **Литералы mothership:** в канон-доках (`docs/` кроме `docs/superpowers/` — там design-spec/plan законно ссылаются на mothership), `Product_agents/`, `.claude/agents/` — не найдено (grep по mothership-литералам и доменным ловушкам X5_BM пуст).
 - **Фантомные ссылки:** все `.md`-пути в канон-доках резолвятся в воркдереве. Внешняя ссылка `XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md` отсутствует в изолированном воркдереве, но EXISTS в основном чекауте `Plugins/` — резолвится при мерже (ожидаемо для worktree-изоляции).
 - **Память:** все 3 агента — seed + указатель на `MEMORY_CONVENTION.md`.
 - **Aspirational ≠ гейт:** owner-нормы (покрытие tools) оформлены как измеряемые цели с честным gap-отчётом в каноне `xt-protocol-qa`, не как блокирующие гейты.
 - **Version-probe (зеро-траст, свежие субагенты):** xt-builder / xt-protocol-qa / xt-scribe — все PASS (стаб→канон резолвится, проект = XTracker-плагин, дрейфа нет; QA тестирует через stdio JSON-RPC).
 - **Constitution-Check self-тест:** `spec-bad` → FLAG P-1/P-7/P-2 (`MUST-FLAG ≥ 3`), `spec-clean` → `MUST-FLAG: 0` — согласовано.
 
-**Остаток (следующая итерация):** v1-плагин XTracker (`XTracker/`: `jarvis-plugin.json`, `SKILL.md`, `config/`, `server.py` + tools ядра иссью, vendored SDK) + протокол-харнесс — строятся первой фичей через `/pipeline-lite` (отдельный план).
+**Остаток (следующая итерация):** v1-плагин XTracker (`X5Tracker/`: `jarvis-plugin.json`, `SKILL.md`, `config/`, `server.py` + tools ядра иссью, vendored SDK) + протокол-харнесс — строятся первой фичей через `/pipeline-lite` (отдельный план).
+
+## Релокация в бандл (2026-06-17)
+
+По решению владельца вся операционка и плагин уложены в самодостаточный каталог `X5Tracker/` (репо `Plugins/` — монорепо под много плагинов; корень остаётся чистым). Перемещены `docs/`, `Product_agents/`, `.claude/agents/` → `X5Tracker/…`; внутрибандловые относительные ссылки сохранены. Платформенный spec (`XTracker/my-first-plugin-2/mcp_plugins_dev_spec.md`) — общий reference, остаётся на месте (repo-root-relative). Чтобы агенты подхватились в Claude Code, рабочим корнем открывать `X5Tracker/` (вложенный `.claude/agents/` не автодискаверится из корня репо).

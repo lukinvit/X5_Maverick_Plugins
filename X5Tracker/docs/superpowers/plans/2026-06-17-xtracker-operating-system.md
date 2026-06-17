@@ -29,7 +29,9 @@
 
 ## File Structure
 
-All paths relative to the git root (`Plugins/`, here the worktree root). Author order matches task order: docs first (agents reference them), then agents, then index/provenance, then validation.
+> **Обновление 2026-06-17 (релокация в бандл).** Все пути ниже фактически живут под `X5Tracker/` (монорепо `Plugins/` под много плагинов). Т.е. `docs/constitution.md` → `X5Tracker/docs/constitution.md`, `.claude/agents/*` → `X5Tracker/.claude/agents/*` и т.д. Внутрибандловые относительные ссылки сохранены.
+
+All paths relative to the bundle root (`Plugins/X5Tracker/`). Author order matches task order: docs first (agents reference them), then agents, then index/provenance, then validation.
 
 | File | Responsibility |
 |---|---|
