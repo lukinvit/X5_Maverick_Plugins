@@ -1,0 +1,6 @@
+{
+  "base_url": "https://pulsar.x5.ru",
+  "auth_mode": "api_key",
+  "verify_ssl": true,
+  "timeout": 30
+}

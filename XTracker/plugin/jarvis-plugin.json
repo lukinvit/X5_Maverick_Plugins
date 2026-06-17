@@ -1,0 +1,14 @@
+{
+  "slug": "xtracker",
+  "name": "XTracker",
+  "version": "1.0.0",
+  "runtime": "python",
+  "command": ["python", "server.py"],
+  "description": "Чат-интеграция Jarvis с issue-трекером XTracker (pulsar.x5.ru): поиск, чтение, создание, обновление, комментарии, смена статуса и назначение иссью.",
+  "categories_default": ["integrations"],
+  "config_schema_path": "config/schema.json",
+  "config_ui_schema_path": "config/ui.schema.json",
+  "config_defaults_path": "config/defaults.json",
+  "author": "X5 Maverick Plugins",
+  "homepage": "https://github.com/lukinvit/X5_Maverick_Plugins"
+}

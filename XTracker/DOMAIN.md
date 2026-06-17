@@ -37,7 +37,6 @@
 |---|---|---|
 | `search_issues` | `POST /api/v1/issues/_search` (язык запросов) · `GET /api/v1/search/issues` | `preset:card_list` + action-кнопки; `limit` с `maximum` (P-16) |
 | `get_issue` | `GET /api/v1/issues/{key}` (+ `/comments`, `/links`) | `preset:card` |
-| `list_transitions` | `GET …/workflows/{id}/transitions/valid` | text / `preset:key_value` |
 | `create_issue` | `POST /api/v1/issues` | compact `(+1) [key=…]` |
 | `update_issue` | `PATCH /api/v1/issues/{key}` | compact |
 | `comment_issue` | `POST /api/v1/issues/{key}/comments` | compact |
@@ -52,6 +51,12 @@
 - `get_issue` → `preset:card`: детали иссью.
 - `structured_content` никогда не уходит в LLM-контекст; actions — с полным `xtracker__<name>`.
 
+## Реализация и пакет
+
+- **Исходники плагина:** `XTracker/plugin/` (`server.py` — ручной stdio JSON-RPC, stdlib-only; `jarvis-plugin.json`, `SKILL.md`, `config/`, `requirements.txt`).
+- **Тесты (verify-gate):** `XTracker/tests/protocol_qa.py` — мок-API + реальный JSON-RPC; 64/64 PASS (схемы, happy, adversarial, idempotent-skip, отсутствие утечки секретов).
+- **Сборка пакета:** `cd XTracker/plugin && zip -rX ../dist/xtracker-1.0.0.zip . -x '*.pyc' -x '*/__pycache__/*'` → `XTracker/dist/xtracker-1.0.0.zip` (build-артефакт, в `.gitignore`). Загружается через админку Jarvis → «Авторские плагины».
+
 ## Будущие фазы (вне v1)
 
-Спринты/борды (sprint-service), тайм-трекинг (timetracking-service), проекты/очереди, цели/OKR (goals-service), дашборды/аналитика, saved-filters (query-service) — добавляются отдельными tools через `/pipeline-lite`.
+`list_transitions` (перечисление допустимых переходов — требует workflow-engine plumbing), спринты/борды (sprint-service), тайм-трекинг (timetracking-service), проекты/очереди, цели/OKR (goals-service), дашборды/аналитика, saved-filters (query-service) — добавляются отдельными tools через `/pipeline-lite`.

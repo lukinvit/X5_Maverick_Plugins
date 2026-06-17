@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "title": "Подключение к XTracker",
+  "properties": {
+    "base_url": {
+      "type": "string",
+      "title": "URL XTracker",
+      "description": "Базовый URL API трекера",
+      "format": "uri",
+      "default": "https://pulsar.x5.ru"
+    },
+    "auth_mode": {
+      "type": "string",
+      "title": "Режим аутентификации",
+      "description": "api_key — сервис-аккаунт (рекомендуется); password — вход по email/паролю",
+      "enum": ["api_key", "password"],
+      "default": "api_key"
+    },
+    "api_key": {
+      "type": "string",
+      "title": "API-ключ (secret)",
+      "description": "Полный секрет API-ключа XTracker. Используется при auth_mode=api_key",
+      "format": "password"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "description": "Email сервис-аккаунта. Используется при auth_mode=password",
+      "format": "email"
+    },
+    "password": {
+      "type": "string",
+      "title": "Пароль (secret)",
+      "description": "Пароль сервис-аккаунта. Используется при auth_mode=password",
+      "format": "password"
+    },
+    "organization": {
+      "type": "string",
+      "title": "Организация (опц.)",
+      "description": "Slug/идентификатор организации (если нужно явно)"
+    },
+    "default_queue": {
+      "type": "string",
+      "title": "Очередь по умолчанию (опц.)",
+      "description": "Очередь для создания иссью по умолчанию, напр. PROJ"
+    },
+    "verify_ssl": {
+      "type": "boolean",
+      "title": "Проверять SSL-сертификат",
+      "default": true
+    },
+    "ca_cert": {
+      "type": "string",
+      "title": "Путь к CA-сертификату (опц.)",
+      "description": "Путь к доверенному CA-bundle, если у XTracker свой корневой сертификат"
+    },
+    "timeout": {
+      "type": "integer",
+      "title": "Таймаут запроса (сек)",
+      "minimum": 1,
+      "maximum": 300,
+      "default": 30
+    }
+  },
+  "required": ["base_url", "auth_mode"]
+}

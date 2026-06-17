@@ -1,0 +1,22 @@
+{
+  "api_key": {
+    "ui:widget": "password",
+    "jarvis:secret": true
+  },
+  "password": {
+    "ui:widget": "password",
+    "jarvis:secret": true
+  },
+  "ui:order": [
+    "base_url",
+    "auth_mode",
+    "api_key",
+    "email",
+    "password",
+    "organization",
+    "default_queue",
+    "verify_ssl",
+    "ca_cert",
+    "timeout"
+  ]
+}
