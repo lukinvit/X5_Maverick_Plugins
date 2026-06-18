@@ -159,12 +159,12 @@ def run_suite(label, config, port):
         check("tools/list returns 9 tools", len(tools) == 9, "got %d" % len(tools))
         for t in tools:
             sch = t.get("inputSchema", {})
-            ok = sch.get("type") == "object"
-            if t["name"] != "config_test_connection":
-                ok = ok and sch.get("additionalProperties") is False
-                for pn, pv in sch.get("properties", {}).items():
-                    ok = ok and bool(pv.get("description") or pv.get("enum") or pv.get("type"))
-            check("schema ok: %s" % t["name"], ok)
+            # P-7 + guided-decoding safety: ВСЕ схемы закрыты (additionalProperties:false).
+            # Открытый объект (additionalProperties:true) вешал constrained tool-calling модели.
+            ok = sch.get("type") == "object" and sch.get("additionalProperties") is False
+            for pn, pv in sch.get("properties", {}).items():
+                ok = ok and bool(pv.get("description") or pv.get("enum") or pv.get("type"))
+            check("schema closed (additionalProperties:false): %s" % t["name"], ok)
 
         # happy paths
         r = pg.call("whoami", {})

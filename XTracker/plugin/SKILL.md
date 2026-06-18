@@ -11,7 +11,7 @@ description: |
 license: MIT
 metadata:
   author: X5 Maverick Plugins
-  version: "1.0.1"
+  version: "1.0.2"
   category: integrations
 allowed-tools: xtracker__search_issues xtracker__get_issue xtracker__create_issue xtracker__update_issue xtracker__comment_issue xtracker__transition_issue xtracker__assign_issue xtracker__whoami xtracker__config_test_connection
 ---

@@ -526,7 +526,7 @@ def _tools_list_result():
          "inputSchema": {"type": "object", "additionalProperties": False, "properties": {}}},
         {"name": "config_test_connection",
          "description": "Проверить соединение и аутентификацию инстанса с XTracker (для кнопки Test в админке).",
-         "inputSchema": {"type": "object", "additionalProperties": True, "properties": {}}},
+         "inputSchema": {"type": "object", "additionalProperties": False, "properties": {}}},
     ]}
 
 
@@ -574,7 +574,7 @@ def main():
             _send({"jsonrpc": "2.0", "id": mid, "result": {
                 "protocolVersion": "2024-11-05",
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": SLUG, "version": "1.0.1"}}})
+                "serverInfo": {"name": SLUG, "version": "1.0.2"}}})
         elif method == "notifications/initialized" or method == "initialized":
             continue
         elif method == "tools/list":
